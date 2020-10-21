@@ -12,7 +12,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -38,6 +38,8 @@
         </dependency>
     </dependencies>
 
+    <!--    打包命令：mvn install -Dmaven.test.skip=true-->
+    <!--    nohup java -jar xxx.jar &(后台守护进程启动jar包）-->
     <build>
         <plugins>
             <plugin>
