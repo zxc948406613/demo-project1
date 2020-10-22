@@ -74,4 +74,12 @@ public class JsonData implements Serializable {
         return new JsonData(-1, errMsg, null);
     }
 
+    @Override
+    public String toString() {
+        return "JsonData{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
