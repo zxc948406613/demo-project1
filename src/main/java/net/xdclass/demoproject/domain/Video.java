@@ -2,6 +2,7 @@ package net.xdclass.demoproject.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Video implements Serializable {
 
@@ -12,6 +13,11 @@ public class Video implements Serializable {
     private String summary;
 
     private int price;
+
+    /**
+     * 章集合
+     */
+    private List<Chapter> chapterList;
 
     private String coverImg;
 
@@ -39,6 +45,14 @@ public class Video implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public List<Chapter> getChapterList() {
+        return chapterList;
+    }
+
+    public void setChapterList(List<Chapter> chapterList) {
+        this.chapterList = chapterList;
     }
 
     public int getPrice() {
@@ -81,6 +95,7 @@ public class Video implements Serializable {
                 ", title='" + title + '\'' +
                 ", summary='" + summary + '\'' +
                 ", price=" + price +
+                ", chapterList=" + chapterList +
                 ", coverImg='" + coverImg + '\'' +
                 ", createTime=" + createTime +
                 '}';
