@@ -3,7 +3,9 @@ package net.xdclass.demoproject.mapper;
 import net.xdclass.demoproject.domain.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -26,6 +28,13 @@ public class UserMapper {
             return user;
         }
         return null;
+    }
+
+
+    public List<User> queryUserList() {
+        List<User> userList = new ArrayList<>();
+        userList.addAll(userMap.values());
+        return userList;
     }
 
 

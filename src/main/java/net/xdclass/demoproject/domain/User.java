@@ -1,5 +1,7 @@
 package net.xdclass.demoproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -7,6 +9,7 @@ public class User implements Serializable {
 
     private String userName;
 
+    @JsonIgnore
     private String password;
 
     public int getId() {
