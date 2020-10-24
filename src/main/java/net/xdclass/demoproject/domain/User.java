@@ -9,7 +9,7 @@ public class User implements Serializable {
 
     private String userName;
 
-    @JsonIgnore
+//    @JsonIgnore
     private String password;
 
     public int getId() {

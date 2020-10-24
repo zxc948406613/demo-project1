@@ -35,11 +35,11 @@ public class UserController {
     @PostMapping("loginUser")
     public JsonData login(@RequestBody User user) {
         if (user == null) {
-            return JsonData.bulldError("user is null");
+            return JsonData.buildError("user is null");
         }
         String token = userService.login(user.getUserName(), user.getPassword());
 
-        return token != null ? JsonData.buildSuccess(token) : JsonData.bulldError("账号密码错误");
+        return token != null ? JsonData.buildSuccess(token) : JsonData.buildError("账号密码错误");
     }
 
     /**

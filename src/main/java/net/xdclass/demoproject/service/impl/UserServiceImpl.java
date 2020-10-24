@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     /**
      * token存储
      */
-    private static Map<String, User> tokenMap = new HashMap<>();
+    public static Map<String, User> tokenMap = new HashMap<>();
 
     @Autowired
     private UserMapper mapper;

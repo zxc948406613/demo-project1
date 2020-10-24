@@ -70,9 +70,20 @@ public class JsonData implements Serializable {
      * @param errMsg 错误信息
      * @return
      */
-    public static JsonData bulldError(String errMsg) {
+    public static JsonData buildError(String errMsg) {
         return new JsonData(-1, errMsg, null);
     }
+
+    /**
+     * 构造失败
+     * @param errMsg 错误信息
+     * @param errorCode 错误码
+     * @return
+     */
+    public static JsonData buildError(String errMsg, int errorCode) {
+        return new JsonData(errorCode, errMsg, null);
+    }
+
 
     @Override
     public String toString() {
