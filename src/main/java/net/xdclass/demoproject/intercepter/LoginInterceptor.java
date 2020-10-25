@@ -1,67 +1,56 @@
-package net.xdclass.demoproject.filter;
-
+package net.xdclass.demoproject.intercepter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.xdclass.demoproject.domain.User;
 import net.xdclass.demoproject.service.impl.UserServiceImpl;
 import net.xdclass.demoproject.utils.JsonData;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//@WebFilter(urlPatterns = "/api/v1/pri/*", filterName = "loginFilter")
-public class LoginFilter implements Filter {
+public class LoginInterceptor implements HandlerInterceptor {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    /**
-     * 容器加载的时候
-     *
-     * @param filterConfig
-     * @throws ServletException
-     */
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("init LoginFilter");
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("doFilter LoginFilter");
-
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        String token = req.getHeader("token");
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("LoginInterceptor.preHandle========");
+        String token = request.getHeader("token");
         if (StringUtils.isEmpty(token)) {
-            token = req.getParameter("token");
+            token = request.getParameter("token");
         }
         if (!StringUtils.isEmpty(token)) {
             //判断token是否合法
             User user = UserServiceImpl.tokenMap.get(token);
             if (user != null) {
-                filterChain.doFilter(servletRequest, servletResponse);
+                return true;
             } else {
                 String json = objectMapper.writeValueAsString(JsonData.buildError("登录失败，token无效", -2));
-                renderJson(resp, json);
+                renderJson(response, json);
+                return false;
             }
         } else {
             String json = objectMapper.writeValueAsString(JsonData.buildError("用户未登录", -3));
-            renderJson(resp, json);
+            renderJson(response, json);
+            return false;
         }
     }
 
-    /**
-     * 容器销毁的时候
-     */
     @Override
-    public void destroy() {
-        System.out.println("destroy LoginFilter");
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("LoginInterceptor.postHandle========");
+        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("LoginInterceptor.afterCompletion========");
+        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 
     //返回输出

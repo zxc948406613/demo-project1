@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-欢迎来到小D课堂  templets
+这是小D课堂 freemarker整合html页面
+
+<h1>${setting.wxPayAppid}</h1>
 </body>
 </html>
