@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.xdclass.demoproject.domain.User;
 import net.xdclass.demoproject.service.impl.UserServiceImpl;
 import net.xdclass.demoproject.utils.JsonData;
+import net.xdclass.demoproject.utils.ResponseUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
@@ -48,11 +49,11 @@ public class LoginFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 String json = objectMapper.writeValueAsString(JsonData.buildError("登录失败，token无效", -2));
-                renderJson(resp, json);
+                ResponseUtils.renderJson(resp, json);
             }
         } else {
             String json = objectMapper.writeValueAsString(JsonData.buildError("用户未登录", -3));
-            renderJson(resp, json);
+            ResponseUtils.renderJson(resp, json);
         }
     }
 
@@ -62,16 +63,5 @@ public class LoginFilter implements Filter {
     @Override
     public void destroy() {
         System.out.println("destroy LoginFilter");
-    }
-
-    //返回输出
-    private void renderJson(HttpServletResponse response, String json) {
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-        try (PrintWriter writer = response.getWriter()) {
-            writer.print(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 public class UserServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter writer = resp.getWriter();
         writer.write("this is my custom servlet");
         writer.flush();
