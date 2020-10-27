@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +21,13 @@ public class Video implements Serializable {
 
     private int price;
 
+    private double point;
+
     /**
      * 章集合
      */
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Chapter> chapterList;
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    private List<Chapter> chapterList;
 
     @JsonProperty("cover_img")
     private String coverImg;
@@ -57,13 +60,13 @@ public class Video implements Serializable {
         this.summary = summary;
     }
 
-    public List<Chapter> getChapterList() {
-        return chapterList;
-    }
-
-    public void setChapterList(List<Chapter> chapterList) {
-        this.chapterList = chapterList;
-    }
+//    public List<Chapter> getChapterList() {
+//        return chapterList;
+//    }
+//
+//    public void setChapterList(List<Chapter> chapterList) {
+//        this.chapterList = chapterList;
+//    }
 
     public int getPrice() {
         return price;
@@ -89,6 +92,14 @@ public class Video implements Serializable {
         this.createTime = createTime;
     }
 
+    public double getPoint() {
+        return point;
+    }
+
+    public void setPoint(double point) {
+        this.point = point;
+    }
+
     public Video() {
     }
 
@@ -105,7 +116,9 @@ public class Video implements Serializable {
                 ", title='" + title + '\'' +
                 ", summary='" + summary + '\'' +
                 ", price=" + price +
-                ", chapterList=" + chapterList +
+                ", createTime=" + createTime +
+                ", point=" + point +
+//                ", chapterList=" + chapterList +
                 ", coverImg='" + coverImg + '\'' +
                 ", createTime=" + createTime +
                 '}';
