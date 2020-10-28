@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface VideoMapper {
     /**
@@ -34,4 +35,32 @@ public interface VideoMapper {
      * @return
      */
     int add(Video video);
+
+    /**
+     * 批量插入视频记录
+     * @param videoList 视频列表
+     * @return
+     */
+    int batchAdd(List<Video> videoList);
+
+    /**
+     * 全量更新视频（如果有空字段也会更新上去)
+     * @param video 需要更新的视频实体
+     * @return
+     */
+    int updateVideo(Video video);
+
+    /**
+     * 动态更新视频(会判断是否有空字段，有的话不更新上去）
+     * @param video 需要更新的视频实体
+     * @return
+     */
+    int updateVideoSelective(Video video);
+
+    /**
+     * 按条件删除视频实体
+     * @param map
+     * @return
+     */
+    int deleteByCreateTimeAndPrice(Map<String, Object> map);
 }

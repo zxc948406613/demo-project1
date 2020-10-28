@@ -17,10 +17,54 @@ mybatis是使用接口动态代理
     </select>
 
     <!--useGeneratedKeys可以直接获取到插入的主键ID-->
-    <insert id="add" parameterType="net.xdclass.demoproject.domain.Video" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="add" parameterType="net.xdclass.demoproject.domain.Video" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
       INSERT INTO video(`title`, `summary`, `cover_img`, `price`, `create_time`,`point`)
       VALUES
       (#{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{coverImg,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{point,jdbcType=DOUBLE});
     </insert>
+
+    <insert id="batchAdd" parameterType="net.xdclass.demoproject.domain.Video" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO video(`title`, `summary`, `cover_img`, `price`, `create_time`,`point`)
+        VALUES
+        <foreach collection="list" item="video" separator=",">
+            (#{video.title,jdbcType=VARCHAR}, #{video.summary,jdbcType  =VARCHAR}, #{video.coverImg,jdbcType=VARCHAR},
+            #{video.price,jdbcType=INTEGER},
+            #{video.createTime,jdbcType=TIMESTAMP}, #{video.point,jdbcType=DOUBLE})
+        </foreach>
+    </insert>
+
+    <update id="updateVideo" parameterType="net.xdclass.demoproject.domain.Video">
+        update video
+        set
+        title = #{title,jdbcType=VARCHAR},
+        summary = #{summary,jdbcType=VARCHAR},
+        cover_img = #{coverImg,jdbcType=VARCHAR},
+        price = #{price,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        point = #{point,jdbcType=DOUBLE}
+
+        where
+        id=#{id}
+    </update>
+
+    <update id="updateVideoSelective" parameterType="net.xdclass.demoproject.domain.Video">
+        update video
+        <trim prefix="set">
+            <if test="title != null">title = #{title,jdbcType=VARCHAR},</if>
+            <if test="summary != null">summary = #{summary,jdbcType=VARCHAR},</if>
+            <if test="coverImg != null">cover_img = #{coverImg,jdbcType=VARCHAR},</if>
+            <if test="price != 0">price = #{price,jdbcType=INTEGER},</if>
+            <if test="createTime != null">create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="point != null">point = #{point,jdbcType=DOUBLE}</if>
+        </trim>
+        where
+        id=#{id}
+    </update>
+
+    <delete id="deleteByCreateTimeAndPrice" parameterType="java.util.Map">
+        delete from video where create_time <![CDATA[ > ]]> #{createTime} and price <![CDATA[ >= ]]> #{price};
+    </delete>
 
 </mapper>
