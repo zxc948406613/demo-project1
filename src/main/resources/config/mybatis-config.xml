@@ -3,15 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!--属性配置 把一些统一的配置都放到这个里，在下面用-->
+<!--    <properties>-->
+<!--    </properties>-->
+
+    <!--设置配置-->
     <settings>
+        <!--下划线转换为驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+
+    <!--类型别名配置-->
+    <typeAliases>
+        <typeAlias type="net.xdclass.demoproject.domain.Video" alias="Video"/>
+    </typeAliases>
+
+    <!--对象工厂 重写创建方法，帮忙创建对象-->
+<!--    <objectFactory type="">-->
+
+<!--    </objectFactory>-->
+
+    <!--插件，比如分页插件-->
+<!--    <plugins>-->
+<!--        <plugin interceptor=""></plugin>-->
+<!--    </plugins>-->
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://101.200.139.223:3306/zxc?useUnicode=true;characterEncoding=utf-8;useSSL=false"/>
+                <property name="url"
+                          value="jdbc:mysql://101.200.139.223:3306/zxc?useUnicode=true;characterEncoding=utf-8;useSSL=false"/>
                 <property name="username" value="zxc"/>
                 <property name="password" value="4321210Xcwm@"/>
             </dataSource>

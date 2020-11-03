@@ -20,8 +20,8 @@ public class SqlSessionDemo {
             VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
 
             //查询单个Video
-//            Video video = videoMapper.selectById(30);
-//            System.out.println(video.toString());
+            Video video = videoMapper.selectById(30);
+            System.out.println(video.toString());
 
             //查询视频列表
 //            List<Video> videoList = videoMapper.selectList();
@@ -84,11 +84,12 @@ public class SqlSessionDemo {
 //            video7.setSummary("这是韩语专题概要");
 //            int rows = videoMapper.updateVideoSelective(video7);
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("createTime", "2021-09-01 09:33:23");
-            map.put("price", 9000);
-            int rows = videoMapper.deleteByCreateTimeAndPrice(map);
-            System.out.println(rows);
+            //删除操作
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("createTime", "2021-09-01 09:33:23");
+//            map.put("price", 9000);
+//            int rows = videoMapper.deleteByCreateTimeAndPrice(map);
+//            System.out.println(rows);
         }
     }
 }
