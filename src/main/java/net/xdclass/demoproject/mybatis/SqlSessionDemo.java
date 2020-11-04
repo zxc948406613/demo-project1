@@ -20,8 +20,8 @@ public class SqlSessionDemo {
             VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
 
             //查询单个Video
-            Video video = videoMapper.selectById(30);
-            System.out.println(video.toString());
+//            Video video = videoMapper.selectById(30);
+//            System.out.println(video.toString());
 
             //查询视频列表
 //            List<Video> videoList = videoMapper.selectList();
@@ -89,7 +89,10 @@ public class SqlSessionDemo {
 //            map.put("createTime", "2021-09-01 09:33:23");
 //            map.put("price", 9000);
 //            int rows = videoMapper.deleteByCreateTimeAndPrice(map);
-//            System.out.println(rows);
+
+            //映射map根据id查询实体
+            Video video8 = videoMapper.selectBaseFieldByIdWithResultMap(45);
+            System.out.println(video8.toString());
         }
     }
 }

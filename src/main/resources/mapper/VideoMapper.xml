@@ -7,13 +7,37 @@ mybatis是使用接口动态代理
 -->
 <mapper namespace="net.xdclass.demoproject.dao.VideoMapper">
 
+    <sql id="base_video_field">
+        id,title,summary,price,cover_img
+    </sql>
+
+    <resultMap id="VideoResultMap" type="net.xdclass.demoproject.domain.Video">
+        <!--    映射关系
+               id指定查询列唯一表示
+               column 数据库字段的名称
+               property pojo类属性
+               jdbcType 数据库类型-->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="video_title" property="title" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="cover_img" property="coverImg" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectBaseFieldByIdWithResultMap" resultMap="VideoResultMap">
+        select id,title as video_title,summary,cover_img from video where id = #{video_id}
+    </select>
+
     <!--${},#{};推荐使用#{},${}不安全，可能会导致SQL注入攻击}-->
     <select id="selectById" parameterType="java.lang.Integer" resultType="Video">
-        select * from video where id = #{video_id,jdbcType=INTEGER};
+        select
+        <include refid="base_video_field"/>
+        from video where id = #{video_id,jdbcType=INTEGER};
     </select>
 
     <select id="selectByPointAndTitleLike" resultType="Video">
-        select * from video where point = #{point,jdbcType=DOUBLE} AND title like concat('%',#{title,jdbcType=VARCHAR},'%');
+        select
+        <include refid="base_video_field"/>
+        from video where point = #{point,jdbcType=DOUBLE} AND title like concat('%',#{title,jdbcType=VARCHAR},'%');
     </select>
 
     <!--useGeneratedKeys可以直接获取到插入的主键ID-->

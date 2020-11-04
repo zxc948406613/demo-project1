@@ -63,4 +63,11 @@ public interface VideoMapper {
      * @return
      */
     int deleteByCreateTimeAndPrice(Map<String, Object> map);
+
+    /**
+     * 使用映射map，通过id来查询基础字段
+     * @param id id
+     * @return video实体类
+     */
+    Video selectBaseFieldByIdWithResultMap(@Param("video_id")int id);
 }
