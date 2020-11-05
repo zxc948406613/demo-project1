@@ -24,7 +24,7 @@ public class UserMapper {
         if(user == null) {
             return null;
         }
-        if(password.equals(user.getPassword())) {
+        if(password.equals(user.getPwd())) {
             return user;
         }
         return null;

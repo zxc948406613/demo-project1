@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.xdclass.demoproject.dao.VideoOrderMapper">
+
+    <resultMap id="VideoOrderResultMap" type="VideoOrder">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="state" property="state"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="state" property="state"/>
+        <result column="video_id" property="videoId"/>
+        <result column="video_title" property="videoTitle"/>
+        <!--配置属性一对一-->
+        <association property="user" javaType="User">
+            <id property="id" column="user_id"/>
+            <result column="name" property="name"/>
+            <result column="head_img" property="headImg"/>
+            <result column="create_time" property="createTime"/>
+            <result column="phone" property="phone"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="UserOrderResultMap" type="User">
+        <id property="id" column="user_id"/>
+        <result column="name" property="name"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_time" property="createTime"/>
+        <result column="phone" property="phone"/>
+        <!--配置属性一对多
+        property 填写pojo类中集合类属性的名称
+        ofType 填写集合里的对象类-->
+        <collection property="videoOrderList" ofType="VideoOrder">
+            <!--配置主键，管理order的唯一标识-->
+            <id column="id" property="id"/>
+            <result column="user_id" property="userId"/>
+            <result column="out_trade_no" property="outTradeNo"/>
+            <result column="create_time" property="createTime"/>
+            <result column="state" property="state"/>
+            <result column="total_fee" property="totalFee"/>
+            <result column="state" property="state"/>
+            <result column="video_id" property="videoId"/>
+            <result column="video_title" property="videoTitle"/>
+        </collection>
+    </resultMap>
+
+    <!--一对一关联查询订单， 订单内部包含用户属性-->
+    <select id="queryVideoOrderList" resultMap="VideoOrderResultMap">
+        select *
+        from video_order o
+        left join user u on o.user_id = u.id
+    </select>
+
+    <!--一对多关联查询订单， 订单内部包含用户属性-->
+    <select id="queryUserOrder" resultMap="UserOrderResultMap">
+        select *
+        from user u
+        left join video_order o on o.user_id = u.id
+    </select>
+
+
+</mapper>

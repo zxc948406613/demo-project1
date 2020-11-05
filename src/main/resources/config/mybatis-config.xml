@@ -17,6 +17,8 @@
     <!--类型别名配置-->
     <typeAliases>
         <typeAlias type="net.xdclass.demoproject.domain.Video" alias="Video"/>
+        <typeAlias type="net.xdclass.demoproject.domain.VideoOrder" alias="VideoOrder"/>
+        <typeAlias type="net.xdclass.demoproject.domain.User" alias="User"/>
     </typeAliases>
 
     <!--对象工厂 重写创建方法，帮忙创建对象-->
@@ -44,5 +46,6 @@
 
     <mappers>
         <mapper resource="mapper/VideoMapper.xml"/>
+        <mapper resource="mapper/VideoOrderMapper.xml"/>
     </mappers>
 </configuration>

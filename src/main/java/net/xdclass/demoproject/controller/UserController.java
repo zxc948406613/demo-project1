@@ -37,7 +37,7 @@ public class UserController {
         if (user == null) {
             return JsonData.buildError("user is null");
         }
-        String token = userService.login(user.getUserName(), user.getPassword());
+        String token = userService.login(user.getName(), user.getPwd());
 
         return token != null ? JsonData.buildSuccess(token) : JsonData.buildError("账号密码错误");
     }

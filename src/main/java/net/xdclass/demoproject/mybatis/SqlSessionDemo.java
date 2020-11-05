@@ -1,7 +1,10 @@
 package net.xdclass.demoproject.mybatis;
 
 import net.xdclass.demoproject.dao.VideoMapper;
+import net.xdclass.demoproject.dao.VideoOrderMapper;
+import net.xdclass.demoproject.domain.User;
 import net.xdclass.demoproject.domain.Video;
+import net.xdclass.demoproject.domain.VideoOrder;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,7 +21,7 @@ public class SqlSessionDemo {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             VideoMapper videoMapper = sqlSession.getMapper(VideoMapper.class);
-
+            VideoOrderMapper videoOrderMapper = sqlSession.getMapper(VideoOrderMapper.class);
             //查询单个Video
 //            Video video = videoMapper.selectById(30);
 //            System.out.println(video.toString());
@@ -91,8 +94,14 @@ public class SqlSessionDemo {
 //            int rows = videoMapper.deleteByCreateTimeAndPrice(map);
 
             //映射map根据id查询实体
-            Video video8 = videoMapper.selectBaseFieldByIdWithResultMap(45);
-            System.out.println(video8.toString());
+//            Video video8 = videoMapper.selectBaseFieldByIdWithResultMap(45);
+//            System.out.println(video8.toString());
+            //一对一关联查询 association
+            List<VideoOrder> videoOrderList = videoOrderMapper.queryVideoOrderList();
+//            System.out.println(videoOrderList.toString());
+
+            List<User> userList = videoOrderMapper.queryUserOrder();
+            System.out.println(userList);
         }
     }
 }

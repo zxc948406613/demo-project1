@@ -21,8 +21,8 @@ public class UserTest {
     public void loginTest() {
         User user = new User();
         user.setId(1);
-        user.setUserName("Jack");
-        user.setPassword("123");
+        user.setName("Jack");
+        user.setPwd("123");
         JsonData jsonData = userController.login(user);
         System.out.println(jsonData.toString());
         TestCase.assertEquals(0, jsonData.getCode());
