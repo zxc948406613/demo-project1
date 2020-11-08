@@ -25,6 +25,14 @@
         </association>
     </resultMap>
 
+    <!--一对一关联查询订单， 订单内部包含用户属性-->
+    <select id="queryVideoOrderList" resultMap="VideoOrderResultMap">
+        select *
+        from video_order o
+        left join user u on o.user_id = u.id
+    </select>
+
+
     <resultMap id="UserOrderResultMap" type="User">
         <id property="id" column="user_id"/>
         <result column="name" property="name"/>
@@ -48,13 +56,6 @@
         </collection>
     </resultMap>
 
-    <!--一对一关联查询订单， 订单内部包含用户属性-->
-    <select id="queryVideoOrderList" resultMap="VideoOrderResultMap">
-        select *
-        from video_order o
-        left join user u on o.user_id = u.id
-    </select>
-
     <!--一对多关联查询订单， 订单内部包含用户属性-->
     <select id="queryUserOrder" resultMap="UserOrderResultMap">
         select *
@@ -63,4 +64,27 @@
     </select>
 
 
+    <resultMap id="VideoOrderResultMapLazy" type="VideoOrder">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="state" property="state"/>
+        <result column="total_fee" property="totalFee"/>
+        <result column="state" property="state"/>
+        <result column="video_id" property="videoId"/>
+        <result column="video_title" property="videoTitle"/>
+        <association property="user" javaType="User" select="findUserByUserId" column="user_id"/>
+    </resultMap>
+
+    <!--一对一关联查询订单， 订单内部包含用户属性 懒加载-->
+    <select id="queryVideoOrderListLazy" resultMap="VideoOrderResultMapLazy">
+        select *
+        from video_order o
+        left join user u on o.user_id = u.id
+    </select>
+
+    <select id="findUserByUserId" resultType="User">
+        select * from user where id=#{id}
+    </select>
 </mapper>

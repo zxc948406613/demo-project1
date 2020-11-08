@@ -1,8 +1,9 @@
 package net.xdclass.demoproject.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VideoOrder {
+public class VideoOrder implements Serializable {
 
     private String id;
 

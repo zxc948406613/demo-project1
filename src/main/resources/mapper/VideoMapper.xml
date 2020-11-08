@@ -11,6 +11,8 @@ mybatis是使用接口动态代理
         id,title,summary,price,cover_img
     </sql>
 
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"></cache>
+
     <resultMap id="VideoResultMap" type="net.xdclass.demoproject.domain.Video">
         <!--    映射关系
                id指定查询列唯一表示
@@ -28,7 +30,7 @@ mybatis是使用接口动态代理
     </select>
 
     <!--${},#{};推荐使用#{},${}不安全，可能会导致SQL注入攻击}-->
-    <select id="selectById" parameterType="java.lang.Integer" resultType="Video">
+    <select id="selectById" parameterType="java.lang.Integer" resultType="Video" useCache="false">
         select
         <include refid="base_video_field"/>
         from video where id = #{video_id,jdbcType=INTEGER};

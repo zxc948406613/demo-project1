@@ -5,13 +5,19 @@
 <configuration>
 
     <!--属性配置 把一些统一的配置都放到这个里，在下面用-->
-<!--    <properties>-->
-<!--    </properties>-->
+    <!--    <properties>-->
+    <!--    </properties>-->
 
     <!--设置配置-->
     <settings>
         <!--下划线转换为驼峰-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--二级缓存开关-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--延迟（懒）加载总开关-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--将aggressiveLazyLoading设置为false表示按需加载，默认为true-->
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
 
     <!--类型别名配置-->
@@ -22,14 +28,14 @@
     </typeAliases>
 
     <!--对象工厂 重写创建方法，帮忙创建对象-->
-<!--    <objectFactory type="">-->
+    <!--    <objectFactory type="">-->
 
-<!--    </objectFactory>-->
+    <!--    </objectFactory>-->
 
     <!--插件，比如分页插件-->
-<!--    <plugins>-->
-<!--        <plugin interceptor=""></plugin>-->
-<!--    </plugins>-->
+    <!--    <plugins>-->
+    <!--        <plugin interceptor=""></plugin>-->
+    <!--    </plugins>-->
 
     <environments default="development">
         <environment id="development">

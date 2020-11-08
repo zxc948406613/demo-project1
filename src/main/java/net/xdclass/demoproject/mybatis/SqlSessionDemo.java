@@ -97,11 +97,17 @@ public class SqlSessionDemo {
 //            Video video8 = videoMapper.selectBaseFieldByIdWithResultMap(45);
 //            System.out.println(video8.toString());
             //一对一关联查询 association
-            List<VideoOrder> videoOrderList = videoOrderMapper.queryVideoOrderList();
+//            List<VideoOrder> videoOrderList = videoOrderMapper.queryVideoOrderList();
 //            System.out.println(videoOrderList.toString());
-
-            List<User> userList = videoOrderMapper.queryUserOrder();
-            System.out.println(userList);
+            //一对多集合查询 collection
+//            List<User> userList = videoOrderMapper.queryUserOrder();
+//            System.out.println(userList);
+            //懒加载
+            List<VideoOrder> videoOrderList = videoOrderMapper.queryVideoOrderListLazy();
+            for(VideoOrder videoOrder : videoOrderList) {
+//                System.out.println(videoOrder.getVideoTitle());
+                System.out.println(videoOrder.getUser().getName());
+            }
         }
     }
 }
